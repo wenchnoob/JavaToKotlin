@@ -23,6 +23,7 @@ public class Output {
 
 }
 
+// Also utilized interfaces for passing a method
 interface Print {
     public void print(int j) throws IOException;
 }
