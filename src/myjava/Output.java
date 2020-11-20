@@ -7,11 +7,17 @@ import java.io.IOException;
 public class Output {
 
     public static void main(String[] args) throws IOException {
-        int times = 10000;
-        long standardPrintTime = time(new sysPrint(), times);
-        long bufferedPrintTime = time(new bufPrint(), times);
+        try {
+            Class.forName("myjava.Output");
+            int times = 10000;
+            long standardPrintTime = time(new sysPrint(), times);
+            System.out.println();
+            long bufferedPrintTime = time(new bufPrint(), times);
 
-        System.out.printf("\nThe standard time is: %d \nThe buffered time is: %d", standardPrintTime, bufferedPrintTime);
+            System.out.printf("\nThe standard time is: %d \nThe buffered time is: %d", standardPrintTime, bufferedPrintTime);
+        } catch (ClassNotFoundException e) {
+        }
+
     }
 
     public static long time(Print p, int j) throws IOException {
@@ -28,7 +34,8 @@ interface Print {
     public void print(int j) throws IOException;
 }
 
-class sysPrint implements Print {
+class sysPrint implements Print { // Kind of creates a carrier object for the print method, like I assume python does implicitly
+    // because methods are objects in python
     public void print(int j) {
         for(int i = 0; i < j; i++) System.out.print('a');
     }
@@ -41,3 +48,4 @@ class bufPrint implements Print {
         bo.flush();
     }
 }
+
